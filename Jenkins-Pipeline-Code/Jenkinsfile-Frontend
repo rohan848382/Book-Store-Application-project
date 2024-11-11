@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/CloudTechDevOps/2nd10WeeksofCloudOps-main.git'
+                git branch: 'main', url: 'https://github.com/rohan848382/Book-Store-Application-project.git'
             }
         }
         stage('Sonarqube Analysis') {
@@ -27,8 +27,10 @@ pipeline {
                 dir('client') {
                     withSonarQubeEnv('sonar-server') {
                         sh ''' $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=three-tier-frontend \
-                        -Dsonar.projectKey=three-tier-frontend '''
+                        -Dsonar.projectKey=frontend \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://3.237.238.71:9000 \
+                        -Dsonar.login=squ_7fc9861d79453ed1d185e084289054a6efbe0347  '''
                     }
                 }
             }
@@ -74,7 +76,7 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/CloudTechDevOps/2nd10WeeksofCloudOps-main.git'
+                git branch: 'main', url: 'https://github.com/rohan848382/Book-Store-Application-project.git'
             }
         }
         stage('Update Deployment file') {
